@@ -1,0 +1,17 @@
+cz/muni/fi/pa036/entity/Publisher.class
+cz/muni/fi/pa036/CacheSetup.class
+cz/muni/fi/pa036/service/PublisherService.class
+cz/muni/fi/pa036/service/AuthorService.class
+cz/muni/fi/pa036/service/BookService.class
+cz/muni/fi/pa036/entity/Author.class
+cz/muni/fi/pa036/rest/PersonController.class
+cz/muni/fi/pa036/EventLogger.class
+cz/muni/fi/pa036/repository/AuthorRepository.class
+cz/muni/fi/pa036/repository/PersonRepository.class
+cz/muni/fi/pa036/rest/AuthorController.class
+cz/muni/fi/pa036/repository/BookRepository.class
+cz/muni/fi/pa036/repository/PublisherRepository.class
+cz/muni/fi/pa036/Application.class
+cz/muni/fi/pa036/entity/Book.class
+cz/muni/fi/pa036/service/PersonService.class
+cz/muni/fi/pa036/entity/Person.class
