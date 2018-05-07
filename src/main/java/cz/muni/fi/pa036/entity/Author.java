@@ -1,5 +1,7 @@
 package cz.muni.fi.pa036.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -19,6 +21,7 @@ public class Author {
     private String surname;
 
     @ManyToMany
+    @JsonIgnoreProperties("authors")
     private List<Book> books;
 
     public Author() {
