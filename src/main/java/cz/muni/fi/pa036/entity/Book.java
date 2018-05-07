@@ -1,5 +1,7 @@
 package cz.muni.fi.pa036.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -21,9 +23,11 @@ public class Book {
     private Integer pages;
 
     @ManyToMany
+    @JsonIgnoreProperties("books")
     private List<Author> authors;
 
     @ManyToOne
+    @JsonIgnoreProperties("books")
     private Publisher publisher;
 
     public Book() {

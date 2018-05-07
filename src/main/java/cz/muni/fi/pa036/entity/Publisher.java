@@ -1,11 +1,14 @@
 package cz.muni.fi.pa036.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+
 public class Publisher {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,6 +18,7 @@ public class Publisher {
     private String name;
 
     @OneToMany
+    @JsonIgnoreProperties("publisher")
     private List<Book> books;
 
     public Publisher() {
