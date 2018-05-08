@@ -2,6 +2,7 @@ package cz.muni.fi.pa036.service;
 
 import cz.muni.fi.pa036.entity.Publisher;
 import cz.muni.fi.pa036.repository.PublisherRepository;
+import cz.muni.fi.pa036.rest.dto.PublisherDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -9,6 +10,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PublisherService {
@@ -20,23 +22,24 @@ public class PublisherService {
     }
 
     @Cacheable(value = "publisher")
-    public List<Publisher> findAllPublishers() {
-        return repository.findAll();
+    public List<PublisherDTO> findAllPublishers() {
+        return repository.findAll().stream().map(PublisherDTO::new).collect(Collectors.toList());
     }
 
     @Cacheable(value = "publisher")
-    public Publisher findOne(Long id) {
-        return repository.findOne(id);
+    public PublisherDTO findOne(Long id) {
+        return new PublisherDTO(repository.findOne(id));
     }
 
     @CachePut(value = "publisher", key = "#publisher.id")
-    public Publisher create(Publisher publisher) {
-        return repository.save(publisher);
+    public PublisherDTO create(PublisherDTO dto) {
+        Publisher publisher = dto.toDO();
+        return new PublisherDTO(repository.save(publisher));
     }
 
     @CacheEvict(value = "publisher", key = "#publisher.id")
-    public Publisher update(Publisher publisher) {
-        return create(publisher);
+    public PublisherDTO update(PublisherDTO dto) {
+        return create(dto);
     }
 
     @CacheEvict(value = "publisher")

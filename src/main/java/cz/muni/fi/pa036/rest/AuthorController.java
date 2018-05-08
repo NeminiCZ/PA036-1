@@ -1,6 +1,7 @@
 package cz.muni.fi.pa036.rest;
 
 import cz.muni.fi.pa036.entity.Author;
+import cz.muni.fi.pa036.rest.dto.AuthorDTO;
 import cz.muni.fi.pa036.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,22 +19,22 @@ public class AuthorController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Author> getAuthors() {
+    public List<AuthorDTO> getAuthors() {
         return service.findAllAuthors();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Author getAuthor(@PathVariable Long id) {
+    public AuthorDTO getAuthor(@PathVariable Long id) {
         return service.findOne(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Author createAuthor(@RequestBody Author author) {
+    public AuthorDTO createAuthor(@RequestBody AuthorDTO author) {
         return service.create(author);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Author updateAuthor(@PathVariable Long id, @RequestBody Author author) {
+    public AuthorDTO updateAuthor(@PathVariable Long id, @RequestBody AuthorDTO author) {
         author.setId(id);
         return service.update(author);
     }

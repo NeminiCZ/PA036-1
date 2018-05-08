@@ -1,6 +1,7 @@
 package cz.muni.fi.pa036.rest;
 
 import cz.muni.fi.pa036.entity.Publisher;
+import cz.muni.fi.pa036.rest.dto.PublisherDTO;
 import cz.muni.fi.pa036.service.PublisherService;
 import cz.muni.fi.pa036.service.PublisherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,24 +20,24 @@ public class PublisherController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Publisher> getPublishers() {
+    public List<PublisherDTO> getPublishers() {
         return service.findAllPublishers();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Publisher getPublisher(@PathVariable Long id) {
+    public PublisherDTO getPublisher(@PathVariable Long id) {
         return service.findOne(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Publisher createPublisher(@RequestBody Publisher author) {
-        return service.create(author);
+    public PublisherDTO createPublisher(@RequestBody PublisherDTO publisher) {
+        return service.create(publisher);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Publisher updatePublisher(@PathVariable Long id, @RequestBody Publisher author) {
-        author.setId(id);
-        return service.update(author);
+    public PublisherDTO updatePublisher(@PathVariable Long id, @RequestBody PublisherDTO publisher) {
+        publisher.setId(id);
+        return service.update(publisher);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
