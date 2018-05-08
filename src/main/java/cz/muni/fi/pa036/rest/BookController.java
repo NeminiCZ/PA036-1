@@ -1,6 +1,7 @@
 package cz.muni.fi.pa036.rest;
 
 import cz.muni.fi.pa036.entity.Book;
+import cz.muni.fi.pa036.rest.dto.BookDTO;
 import cz.muni.fi.pa036.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,24 +19,24 @@ public class BookController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Book> getBooks() {
+    public List<BookDTO> getBooks() {
         return service.findAllBooks();
     }
 
     @RequestMapping(value = "/{isbn}", method = RequestMethod.GET)
-    public Book getBook(@PathVariable String isbn) {
+    public BookDTO getBook(@PathVariable String isbn) {
         return service.findOne(isbn);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Book createBook(@RequestBody Book author) {
-        return service.create(author);
+    public BookDTO createBook(@RequestBody BookDTO book) {
+        return service.create(book);
     }
 
     @RequestMapping(value = "/{isbn}", method = RequestMethod.PUT)
-    public Book updateBook(@PathVariable String isbn, @RequestBody Book author) {
-        author.setIsbn(isbn);
-        return service.update(author);
+    public BookDTO updateBook(@PathVariable String isbn, @RequestBody BookDTO book) {
+        book.setIsbn(isbn);
+        return service.update(book);
     }
 
     @RequestMapping(value = "/{isbn}", method = RequestMethod.DELETE)

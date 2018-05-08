@@ -2,6 +2,7 @@ package cz.muni.fi.pa036.service;
 
 import cz.muni.fi.pa036.entity.Author;
 import cz.muni.fi.pa036.repository.AuthorRepository;
+import cz.muni.fi.pa036.rest.dto.AuthorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -9,6 +10,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthorService {
@@ -20,23 +22,24 @@ public class AuthorService {
     }
 
     @Cacheable(value = "author")
-    public List<Author> findAllAuthors() {
-        return repository.findAll();
+    public List<AuthorDTO> findAllAuthors() {
+        return repository.findAll().stream().map(AuthorDTO::new).collect(Collectors.toList());
     }
 
     @Cacheable(value = "author")
-    public Author findOne(Long id) {
-        return repository.findOne(id);
+    public AuthorDTO findOne(Long id) {
+        return new AuthorDTO(repository.findOne(id));
     }
 
     @CachePut(value = "author", key = "#author.id")
-    public Author create(Author author) {
-        return repository.save(author);
+    public AuthorDTO create(AuthorDTO dto) {
+        Author author = dto.toDO();
+        return new AuthorDTO(repository.save(author));
     }
 
     @CacheEvict(value = "author", key = "#author.id")
-    public Author update(Author author) {
-        return create(author);
+    public AuthorDTO update(AuthorDTO dto) {
+        return create(dto);
     }
 
     @CacheEvict(value = "author")
